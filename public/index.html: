@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Monetarisierungsprüfung</title>
+</head>
+<body>
+  <h1>YouTube Monetarisierungsprüfung</h1>
+  <input type="text" id="videoId" placeholder="YouTube Video-ID eingeben" />
+  <button onclick="checkMonetization()">Prüfen</button>
+  <p id="result"></p>
+
+  <script>
+    async function checkMonetization() {
+      const videoId = document.getElementById('videoId').value;
+      const response = await fetch('/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videoId })
+      });
+      const data = await response.json();
+      document.getElementById('result').textContent = data.monetarisiert
+        ? 'Das Video ist monetarisiert.'
+        : 'Das Video ist nicht monetarisiert.';
+    }
+  </script>
+</body>
+</html>
